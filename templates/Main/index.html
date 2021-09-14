@@ -1,0 +1,204 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Movie Community</title>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Noto+Sans+JP">
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'fa/css/all.min.css' %}">
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+</head>
+<body>
+    <!-- ************ HERO SECTION ************-->
+    <header id="home">
+        <div class="menu">
+        <img src="{% static '/images/logo_edited.png' %}" alt="">
+              <nav class="nav">
+                <ul class="nav-link">
+                    <li><a class="text-decoration-none" href="#home">Home</a></li>
+                    <li><a class="text-decoration-none" href="#about">About</a></li>
+                    <li><a class="text-decoration-none" href="#whatwedo">What we do</a></li>
+                    <li><a class="text-decoration-none" href="#team">Team</a></li>
+                    <li><a class="text-decoration-none" href="{% url 'bloglist' %}">Blog</a></li>
+                    <li><a class="text-decoration-none" href="#contact">Get in Touch</a></li>
+                </ul>
+              </nav>
+        </div>
+        <section class="hero-section">
+            <h1 class="text-warning">A Community of Movie lovers</h1>
+            <p>
+                The Film Circle's mission is to offer a casual, weekly forum for people to view and discuss indie,<br>
+                foreign and classic films and meet others who share this interest.
+            </p>
+            <div id="action">
+                <a href="#" class="btn">
+                    <button class="btn btn-dark btn-lg text-warning">More About Us</button>
+                </a>
+                <a href="{% url 'register' %}">
+                    <button class="btn btn-danger btn-lg">Join our Community</button>
+                </a>
+            </div>
+        </section>
+    </header>
+
+
+<section class="" id="about">
+    <h1 class="pt-4">About Us</h1>
+    <hr>
+    <div class="container-fluid">
+        <div class="row p-2 justify-content-around mb-md-4">
+    <div class="col-md-12 col-lg-6 text-center align-items-start justify-content-between">
+ {% for item in about %}
+
+
+     <p id="lessabout{{item.id}}" class="text-justify pl-5">
+                {{ item.Content|truncatewords:55 }}
+              </p>
+              <p id="moreabout{{item.id}}" class="text-justify pl-5 d-none">
+                {{ item.Content}}
+              </p>
+
+        <button class="btn btn-danger" onclick="readMore(this,'{{item.id}}','about')">
+                Read More
+              </button>
+    </div>
+    <div class="col-md-12 col-lg-4">
+        <img class="img-fluid" src="{{ item.Photo.url }}" alt="Responsive image">
+    </div>
+        </div>
+         </div>
+ {% endfor %}
+
+</section>
+
+<section class="text-light" style="background-color: #000000" id="whatwedo">
+    <h1 class="pt-4">What We Do</h1>
+    <hr>
+<div class="container-fluid">
+    <div class="row text-center justify-content-around p-lg-5 mb-lg-5">
+        {% for service in services %}
+
+        <div class="col-sm-12 col-md-12 col-lg-4">
+            <img src="{{ service.Icon.url }}" alt="" width="60" height="60">
+            <h2 class="m-2">{{ service.Title }}</h2>
+        <p id="lessactivity{{service.id}}" class="text-justify">
+                {{ service.Subtext|truncatewords:25 }}
+              </p>
+              <p id="moreactivity{{service.id}}" class="text-justify d-none">
+                {{ service.Subtext }}
+              </p>
+
+        <button class="btn btn-danger" onclick="readMore(this,'{{service.id}}','activity')">
+                Read More
+              </button>
+        </div>
+     {% endfor %}
+
+    </div>
+
+
+    </div>
+</section>
+
+<section class="team-section" id="team">
+    <h1 class="pt-2">Our Team</h1>
+    <hr>
+
+    <div class="container-fluid pb-lg-4">
+        <div class="row mb-md-2">
+
+            {% for te in team %}
+          <div class="col-sm-12 col-md-4 col-lg-4">
+            <img class="rounded-circle" src="{% static 'images/icons/icons.png' %}" alt="" width="100" height="100">
+            <h3>{{ te.first_name }}</h3>
+            <h4>{{ te.title }}</h4>
+            <p class="text-justify" id="">
+             {{ te.about|truncatechars:160 }}
+            </p>
+          </div>
+
+             {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="text-light" style="background-color: #000000" id="blog">
+    <h1 class="pt-4">Blog Posts</h1>
+    <hr>
+
+<div class="container-fluid">
+    <div class="row text-center pb-lg-5">
+        {% for post in posts %}
+
+    <div class="col-md-4 col-sm-12">
+     <a href="blog/blog-details/{{ post.id }}">
+        <img class="m-4" src="{{ post.Poster.url }}" alt="" width="200" height="300">
+     </a>
+        <h4>{{ post.Release }}</h4>
+        <h4>{{ post.Author }}</h4>
+        <h3>{{ post.Title }}</h3>
+    </div>
+        {% endfor %}
+
+</div>
+</div>
+</section>
+<section id="contact">
+    <h1 class="pt-4">Get in Touch</h1>
+    <hr>
+<!--    TODO: Fetch data from database-->
+<div class="container">
+    <div class="row">
+    <div class="col">
+        <h2>Social Links</h2>
+
+        <a class="text-decoration-none" href="https://www.instagram.com/" target="_blank"><img src="{% static 'images/icons/instagram.png' %}" height="30" width="20"><i class="fab fa-instagram fa-sm"></i></a>
+        <a class="text-decoration-none" href="https://twitter.com/" target="_blank" ><img src="{% static 'images/icons/twitter.png' %}" height="30" width="20"><i class="fab fa-twitter"></i></a>
+        <a class="text-decoration-none" href="https://www.facebook.com/blandymontana/" target="_blank"><img src="{% static 'images/icons/facebook.png' %}" height="30" width="20"><i class="fab fa-facebook"></i></a>
+        <a class="text-decoration-none" href="https://wa.link/f1w54r" target="_blank"><i class="fab fa-whatsapp"><img src="{% static 'images/icons/WhatsApp.png' %}" height="30" width="20"></i></a>
+    </div>
+
+    <div class="col">
+        <h2>Sitemap</h2>
+        <div><a class="text-decoration-none mb-lg-4" href="#home">Home</a></div>
+        <div><a class="text-decoration-none mb-lg-4" href="#team">Our Team</a><br> </div>
+       <div><a class="text-decoration-none mb-lg-4" href="#blog">Blog Posts</a></div>
+    </div>
+    <div class="col">
+        <h2>Contact Us</h2>
+       <form action="" method="post" class="">
+            {% csrf_token %}
+            <input class="form-control bg-dark m-2 text-light" type="email" name="email" placeholder="Enter Email address">
+            <input class="form-control bg-dark m-2 text-light" type="text" name="subject" placeholder="Enter Subject">
+            <textarea class="form-control bg-dark m-2 text-light" name="message" placeholder="Type your message here..." id="messages" cols="30" rows="10"></textarea>
+            <input class="form-control btn btn-dark m-2 text-light" type="submit" value="Submit">
+        </form>
+    </div>
+    </div>
+    </div>
+</section>
+<footer class="card-footer bg-dark text-center text-light">
+          Rwema | Peace &copy; 2021
+</foote>
+
+
+    <script>
+        function readMore(btn, id, type){
+  btn.innerHTML = "Read Less";
+  document.getElementById("more" + type + id).classList.remove("d-none");
+  document.getElementById("less" + type + id).classList.add("d-none");
+  btn.setAttribute("onclick", "readLess(this,'" + id + "','" + type + "')");
+}
+
+function readLess(btn, id, type) {
+  btn.innerHTML = "Read More";
+  document.getElementById("more" + type + id).classList.add("d-none");
+  document.getElementById("less" + type + id).classList.remove("d-none");
+  btn.setAttribute("onclick", "readMore(this,'" + id + "','" + type + "')");
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{% extends "Blog/layout.html" %}
+
+{% block content %}
+<div class="container">
+
+<div class="row">
+          {% for blog in blogs %}
+
+        <div class="col-md-3 d-flex align-items-stretch">
+
+        <div class="card my-2" style="width: 18rem;">
+            <a class="text-decoration-none"  href="details/{{ blog.id }}">
+                <img class="card-img-top" src="{{ blog.Poster.url}}" alt="Card image cap">
+            </a>
+            <div class="card-body">
+                <h5 class="card-title">{{ blog.Title }} </h5>
+                <span class="movie-info text-primary">{{ blog.Release}} - {{ blog.Genre }}</span>
+                <p class="card-text mt-1">
+                    {{ blog.Description|truncatewords:20 }}
+                </p>
+
+            </div>
+        </div>
+
+        </div>
+      {% endfor %}
+
+</div>
+
+
+{% endblock %}

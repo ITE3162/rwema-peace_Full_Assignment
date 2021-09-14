@@ -1,0 +1,42 @@
+
+{% extends "./accountlayout.html" %}
+{% block content %}
+
+<div class="container">
+  <form method="post">
+    {% csrf_token %}
+  <div class="mb-3 form-group col-6">
+    <label  class="form-label">Firstname</label>
+    <input type="text" class="form-control" name="firstname" placeholder="Enter firstname" >
+  </div>
+     <div class="mb-3 form-group col-6">
+    <label  class="form-label">Lastname</label>
+    <input type="text" class="form-control" name="lastname" placeholder="Enter lastname" >
+  </div>
+     <div class="mb-3 form-group col-6">
+    <label  class="form-label">Username</label>
+    <input type="text" class="form-control" name="username" placeholder="Enter username" >
+  </div>
+         <div class="mb-3 form-group col-6">
+    <label  class="form-label">Email</label>
+    <input type="text" class="form-control" name="email" placeholder="Enter your email" >
+  </div>
+
+  <div class="mb-3 form-group col-6">
+    <label  class="form-label">Password</label>
+    <input type="password" class="form-control" placeholder="Type password" name="password">
+  </div>
+      <div class="mb-3 form-group col-6">
+    <label class="form-label">Password</label>
+    <input type="password" class="form-control" placeholder="Re-type password" name="password1">
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+     <div> <small><a href="{% url 'login' %}">  Already have account?, login here</a></small></div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+
+{% endblock %}

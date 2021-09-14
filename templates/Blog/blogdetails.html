@@ -1,0 +1,37 @@
+
+{% extends "Blog/layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h4>Money Heist</h4>
+    <hr />
+    <dl class="row">
+        <div class="col-md-3">
+            <img class="img-fluid" src="{{ details.Poster.url }}" alt="">
+        </div>
+        <div class="col-md-6">
+            <h5>Synopsis</h5>
+            <p>
+                  {{ details.Description }}
+            </p>
+        </div>
+        <div class="col-md-3">
+        <h5>Related Movies</h5>
+            {% if related %}
+                {% for rel in related %}
+
+            <a  class="text-decoration-none" id="Id" href="{{ rel.id }}">
+                <img width="80" height="100" class="img-thumbnail " src="{{ rel.Poster.url }}" alt="Card image cap">
+            </a>
+                   {% endfor %}
+
+    {% else %}
+    No related movies...
+{% endif %}
+
+</div>
+<div>
+    <a href="{% url 'bloglist' %}" >Back to List</a>
+</div>
+
+{% endblock %}

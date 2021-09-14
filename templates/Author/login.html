@@ -1,0 +1,25 @@
+
+{% extends "./accountlayout.html" %}
+{% block content %}
+
+<div class="container">
+  <form method="post">
+    {% csrf_token %}
+     <div class="mb-3 form-group col-6">
+    <label  class="form-label">Username</label>
+    <input type="text" class="form-control" name="username" placeholder="Enter username" >
+  </div>
+
+  <div class="mb-3 form-group col-6">
+    <label  class="form-label">Password</label>
+    <input type="password" class="form-control" placeholder="Type password" name="password">
+  </div>
+
+ <div> <small><a href="{% url 'register' %}">  Don't have account?, register here</a></small></div>
+  <button type="submit" class="btn btn-primary">Login</button>
+</form>
+</div>
+
+
+
+{% endblock %}
